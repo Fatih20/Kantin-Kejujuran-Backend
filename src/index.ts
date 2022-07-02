@@ -1,5 +1,6 @@
 import express, { Application, Request, Response, Router } from 'express';
 import cookieParser from 'cookie-parser';
+import pool from './database/db';
 
 import { storeDataRouter } from './routes/storeData.routes';
 // import extractJWT from './middleware/extractJWT';
@@ -33,8 +34,9 @@ app.use(function (req, res, next) {
     next();
 });
 app.use(cors({ credentials: true, origin: serverConfig.clientSite}));
-app.use(express.json())
-app.use(cookieParser())
+app.use(express.json());
+app.use(cookieParser());
+
 // app.use(extractJWT);
 
 // Routes
@@ -51,6 +53,16 @@ router.get("/test", (req : Request, res : Response) => {
     res.send({message : "Test successful"});
 })
 
+router.get("/testAdd", async (req : Request, res : Response) => {
+
+    try {
+        const response = await pool.query("INSERT INTO sold_items(name) VALUES ($1)", ["Bruh"]);
+        console.log("Add succcessful")
+    } catch (error) {
+        res.send(error)
+    }
+    // res.send({message : "Test successful"});
+})
 app.use(router);
 app.listen(serverConfig.port, '0.0.0.0',() => console.log('The Server is listening on the port 3000')
 );
