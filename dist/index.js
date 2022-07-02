@@ -35,6 +35,9 @@ app.use((0, cookie_parser_1.default)());
 app.use("/storeData", storeData_routes_1.storeDataRouter);
 router.get("/", (req, res) => {
     console.log("Server running");
+    console.log(config_1.default.clientSite);
+    console.log(process.env.CLIENT_SITE);
+    console.log(process.env.PORT);
     res.send("Hello world");
 });
 router.get("/test", (req, res) => {

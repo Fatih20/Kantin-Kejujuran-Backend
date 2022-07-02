@@ -41,6 +41,9 @@ app.use("/storeData", storeDataRouter);
 
 router.get("/", (req : Request, res : Response) => {
     console.log("Server running");
+    console.log(serverConfig.clientSite);
+    console.log(process.env.CLIENT_SITE);
+    console.log(process.env.PORT);
     res.send("Hello world");
 });
 
