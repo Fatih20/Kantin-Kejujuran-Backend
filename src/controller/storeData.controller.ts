@@ -44,7 +44,7 @@ export async function getBalance (req : Request, res : Response) {
         return;
     }
 
-    res.status(200).send({error, message : "Succesfully fetched the data", response})
+    res.status(200).send({error, message : "Succesfully fetched the data", response : parseInt(response)})
 }
 
 export async function incrementBalance (req : Request, res : Response) {
