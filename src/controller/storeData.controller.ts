@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { addItemQuery, getAllItemsQuery, getBalanceQuery } from "../utilities/storeDataQuery";
+import { addItemQuery, buyItemQuery, getAllItemsQuery, getBalanceQuery } from "../utilities/storeDataQuery";
 import { ISoldItem, ISoldItemRaw } from "../utilities/types";
 
 export async function getAllItems (req : Request, res : Response) {
@@ -26,7 +26,14 @@ export async function addItem (req : Request, res : Response) {
 }
 
 export async function buyItem (req : Request, res : Response) {
+    const {response, error } = await buyItemQuery(req.body.boughtItem as ISoldItemRaw);
 
+    if (error !== null || response === undefined) {
+        res.status(500).send({error, message : "Error when updating data to the database", response});
+        return;
+    }
+
+    return res.status(200).send({error, message : "Succesfully updated data", response : response});
 }
 
 export async function getBalance (req : Request, res : Response) {
