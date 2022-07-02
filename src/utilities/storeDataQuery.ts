@@ -5,7 +5,8 @@ const storeQuery = {
     getAllItems : "SELECT * FROM sold_items",
     getBalance : "SELECT current_balance FROM balance WHERE id = 1;",
     addItem : "INSERT INTO sold_items (name, price, image, description, datecreated, milisecondscreated)",
-    buyItem : "DELETE FROM sold_items WHERE id ="
+    buyItem : "DELETE FROM sold_items WHERE id =",
+    incrementBalance : (newBalance : number) => `UPDATE balance SET current_balance = ${newBalance} WHERE id=1;`
 }
 
 export async function getAllItemsQuery () {
@@ -20,7 +21,7 @@ export async function getAllItemsQuery () {
 export async function getBalanceQuery () {
     try {
         const response = await pool.query(storeQuery.getBalance);
-        return {error : null, response};
+        return {error : null, response : response.rows[0].current_balance};
     } catch (error){
         return {response : undefined, error};
     }
@@ -46,3 +47,12 @@ export async function buyItemQuery (boughtItem : ISoldItemRaw) {
     }
 }
 
+export async function incrementBalanceQuery (previousBalance : number, increment : number) {
+    try {
+        const response = await pool.query(storeQuery.incrementBalance(previousBalance + increment))
+        return {error : null, response}
+    } catch (error){
+        return {response : undefined, error};
+    }
+
+}

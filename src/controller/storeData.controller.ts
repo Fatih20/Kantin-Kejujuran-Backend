@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { addItemQuery, buyItemQuery, getAllItemsQuery, getBalanceQuery } from "../utilities/storeDataQuery";
+import { addItemQuery, buyItemQuery, getAllItemsQuery, getBalanceQuery, incrementBalanceQuery } from "../utilities/storeDataQuery";
 import { ISoldItem, ISoldItemRaw } from "../utilities/types";
 
 export async function getAllItems (req : Request, res : Response) {
@@ -44,10 +44,25 @@ export async function getBalance (req : Request, res : Response) {
         return;
     }
 
-    res.status(200).send({error, message : "Succesfully fetched the data", response : response.rows[0].current_balance})
+    res.status(200).send({error, message : "Succesfully fetched the data", response})
 }
 
 export async function incrementBalance (req : Request, res : Response) {
+    const {error : errorGettingBalance, response : getBalanceResponse } = await getBalanceQuery();
+
+    if (getBalanceResponse === undefined || errorGettingBalance !== null) {
+        res.status(500).send({error : errorGettingBalance, message : "Error when getting data from the database", response : getBalanceResponse});
+    }
+
+    const increment  = req.body.balanceIncrement;
+    const previousBalance = parseInt(getBalanceResponse) as number;
+    const {response : responseIncrementingBalance, error : errorIncrementingBalance} = await incrementBalanceQuery(previousBalance, increment);
+
+    if (responseIncrementingBalance === undefined || errorIncrementingBalance) {
+        res.status(500).send({error : errorIncrementingBalance, message : "Error when incrementing balance data tothe database", response : responseIncrementingBalance});
+    }
+
+    res.status(200).send({error : errorIncrementingBalance, message : "Succesfully incremented the balance", response : responseIncrementingBalance});
 
 }
 
