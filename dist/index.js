@@ -45,9 +45,11 @@ router.get("/test", (req, res) => {
     res.send({ message: "Test successful" });
 });
 router.get("/testAdd", async (req, res) => {
+    console.log(config_1.default.database);
     try {
         const response = await db_1.default.query("INSERT INTO sold_items(name) VALUES ($1)", ["Bruh"]);
         console.log("Add succcessful");
+        res.send("Succesfull");
     }
     catch (error) {
         res.send(error);

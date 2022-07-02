@@ -54,10 +54,12 @@ router.get("/test", (req : Request, res : Response) => {
 })
 
 router.get("/testAdd", async (req : Request, res : Response) => {
+    console.log(serverConfig.database);
 
     try {
         const response = await pool.query("INSERT INTO sold_items(name) VALUES ($1)", ["Bruh"]);
-        console.log("Add succcessful")
+        console.log("Add succcessful");
+        res.send("Succesfull")
     } catch (error) {
         res.send(error)
     }
