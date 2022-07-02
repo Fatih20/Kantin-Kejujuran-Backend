@@ -49,31 +49,6 @@ router.get("/test", (req : Request, res : Response) => {
     res.send({message : "Test successful"});
 })
 
-router.get("/testAdd", async (req : Request, res : Response) => {
-    console.log(serverConfig.database);
-
-    try {
-        const response = await pool.query("INSERT INTO sold_items(name) VALUES ($1)", ["Bruh"]);
-        console.log("Add succcessful");
-        res.send("Succesfull")
-    } catch (error) {
-        res.send(error)
-    }
-    // res.send({message : "Test successful"});
-})
-
-router.get("/testView", async (req : Request, res : Response) => {
-    console.log(serverConfig.database);
-
-    try {
-        const response = await pool.query("SELECT * FROM sold_items");
-        console.log("Add succcessful");
-        res.send(response.rows)
-    } catch (error) {
-        res.send(error)
-    }
-    // res.send({message : "Test successful"});
-})
 app.use(router);
 app.listen(serverConfig.port, '0.0.0.0',() => console.log('The Server is listening on the port 3000')
 );

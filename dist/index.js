@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
-const db_1 = __importDefault(require("./database/db"));
 const storeData_routes_1 = require("./routes/storeData.routes");
 // import extractJWT from './middleware/extractJWT';
 const cors_1 = __importDefault(require("cors"));
@@ -39,30 +38,6 @@ router.get("/", (req, res) => {
 });
 router.get("/test", (req, res) => {
     res.send({ message: "Test successful" });
-});
-router.get("/testAdd", async (req, res) => {
-    console.log(config_1.default.database);
-    try {
-        const response = await db_1.default.query("INSERT INTO sold_items(name) VALUES ($1)", ["Bruh"]);
-        console.log("Add succcessful");
-        res.send("Succesfull");
-    }
-    catch (error) {
-        res.send(error);
-    }
-    // res.send({message : "Test successful"});
-});
-router.get("/testView", async (req, res) => {
-    console.log(config_1.default.database);
-    try {
-        const response = await db_1.default.query("SELECT * FROM sold_items");
-        console.log("Add succcessful");
-        res.send(response.rows);
-    }
-    catch (error) {
-        res.send(error);
-    }
-    // res.send({message : "Test successful"});
 });
 app.use(router);
 app.listen(config_1.default.port, '0.0.0.0', () => console.log('The Server is listening on the port 3000'));
