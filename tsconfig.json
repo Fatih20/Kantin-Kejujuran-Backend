@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+"target": "es2018", 
+        "module": "commonjs", 
+        "rootDir": "./src", 
+        "outDir": "./dist",
+        "strict": true,
+        "esModuleInterop": true 
+    },
+"include": [
+        "./**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
