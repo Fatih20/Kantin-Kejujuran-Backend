@@ -56,5 +56,17 @@ router.get("/testAdd", async (req, res) => {
     }
     // res.send({message : "Test successful"});
 });
+router.get("/testView", async (req, res) => {
+    console.log(config_1.default.database);
+    try {
+        const response = await db_1.default.query("SELECT * FROM sold_items");
+        console.log("Add succcessful");
+        res.send(response.rows);
+    }
+    catch (error) {
+        res.send(error);
+    }
+    // res.send({message : "Test successful"});
+});
 app.use(router);
 app.listen(config_1.default.port, '0.0.0.0', () => console.log('The Server is listening on the port 3000'));
