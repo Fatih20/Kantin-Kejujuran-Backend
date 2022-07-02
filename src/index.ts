@@ -16,6 +16,7 @@ const router: Router = express.Router();
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
+    console.log(serverConfig.clientSite[0]);
     res.setHeader('Access-Control-Allow-Origin', serverConfig.clientSite[0]);
 
     // Request methods you wish to allow
@@ -42,8 +43,7 @@ app.use("/storeData", storeDataRouter);
 router.get("/", (req : Request, res : Response) => {
     console.log("Server running");
     console.log(serverConfig.clientSite);
-    console.log(process.env.CLIENT_SITE);
-    console.log(process.env.PORT);
+    console.log(serverConfig.clientSite[0]);
     res.send("Hello world");
 });
 

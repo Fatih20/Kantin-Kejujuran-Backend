@@ -16,6 +16,7 @@ const router = express_1.default.Router();
 // Middlewares
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
+    console.log(config_1.default.clientSite[0]);
     res.setHeader('Access-Control-Allow-Origin', config_1.default.clientSite[0]);
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -36,8 +37,7 @@ app.use("/storeData", storeData_routes_1.storeDataRouter);
 router.get("/", (req, res) => {
     console.log("Server running");
     console.log(config_1.default.clientSite);
-    console.log(process.env.CLIENT_SITE);
-    console.log(process.env.PORT);
+    console.log(config_1.default.clientSite[0]);
     res.send("Hello world");
 });
 router.get("/test", (req, res) => {
