@@ -1,7 +1,6 @@
 import { Response, Request } from "express";
 import { addItemQuery, buyItemQuery, getAllItemsQuery, getBalanceQuery, incrementBalanceQuery } from "../utilities/storeDataQuery";
 import { ISoldItem, ISoldItemRaw } from "../utilities/types";
-import { numerizePriceAndMiliseconds } from "../utilities/utilities";
 
 export async function getAllItems (req : Request, res : Response) {
     const {response, error} = await getAllItemsQuery();
@@ -11,7 +10,9 @@ export async function getAllItems (req : Request, res : Response) {
         return;
     }
 
-    return res.status(200).send({error, message : "Succesfully fetched data", response : response.rows.map(numerizePriceAndMiliseconds) as ISoldItemRaw[]});
+    
+
+    return res.status(200).send({error, message : "Succesfully fetched data", response : response.rows as ISoldItemRaw[]});
 
 }
 
