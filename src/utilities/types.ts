@@ -13,3 +13,5 @@ export interface ISoldItem extends ISoldItemLite {
 export interface ISoldItemRaw extends ISoldItem {
     id : number
 }
+
+export type ISoldItemRawString = Record<keyof ISoldItemRaw, string>

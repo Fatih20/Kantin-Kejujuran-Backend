@@ -1,13 +1,14 @@
-import { ISoldItemRaw } from "./types";
+import { ISoldItemRaw, ISoldItemRawString } from "./types";
 
-export function numerizePriceAndMiliseconds (item : any) {
-    const {name, price, datecreated, description, id, imagelink, milisecondcreated} = item;
+export function numerizer (stringItem : ISoldItemRawString) {
+    console.log(stringItem)
+    const {name, price, datecreated, description, id, imagelink, milisecondcreated} = stringItem;
     return {
         name,
         price : parseInt(price),
         datecreated,
         description,
-        id,
+        id : parseInt(id),
         imagelink,
         milisecondcreated : parseInt(milisecondcreated)
     } as ISoldItemRaw;
