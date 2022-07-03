@@ -4,7 +4,7 @@ import { ISoldItem, ISoldItemRaw } from "./types";
 const storeQuery = {
     getAllItems : "SELECT * FROM sold_items",
     getBalance : "SELECT current_balance FROM balance WHERE id = 1;",
-    addItem : "INSERT INTO sold_items (name, price, imagelink, description, datecreated, milisecondscreated)",
+    addItem : "INSERT INTO sold_items (name, price, imagelink, description, datecreated, milisecondcreated)",
     buyItem : "DELETE FROM sold_items WHERE id =",
     incrementBalance : (newBalance : number) => `UPDATE balance SET current_balance = ${newBalance} WHERE id=1;`
 }
@@ -12,6 +12,7 @@ const storeQuery = {
 export async function getAllItemsQuery () {
     try {
         const response = await pool.query(storeQuery.getAllItems);
+        console.log(response);
         return {error : null, response};
     } catch (error){
         return {response : undefined, error};
