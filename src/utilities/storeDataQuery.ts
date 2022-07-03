@@ -28,9 +28,9 @@ export async function getBalanceQuery () {
 }
 
 export async function addItemQuery (addedItem : ISoldItem) {
-    const {dateCreated, price, milisecondCreated, description, name, imageLink} = addedItem;
+    const {datecreated, price, milisecondcreated, description, name, imagelink} = addedItem;
     try {
-        const response = await pool.query(`${storeQuery.addItem} VALUES ('${name}', ${price}, '${imageLink}', '${description}', '${dateCreated}', ${milisecondCreated})`);
+        const response = await pool.query(`${storeQuery.addItem} VALUES ('${name}', ${price}, '${imagelink}', '${description}', '${datecreated}', ${milisecondcreated})`);
         return {error : null, response}
     } catch (error){
         return {response : undefined, error};
