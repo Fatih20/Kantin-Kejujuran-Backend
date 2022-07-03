@@ -4,7 +4,7 @@ import { ISoldItem, ISoldItemRaw } from "./types";
 const storeQuery = {
     getAllItems : "SELECT * FROM sold_items",
     getBalance : "SELECT current_balance FROM balance WHERE id = 1;",
-    addItem : "INSERT INTO sold_items (name, price, image, description, datecreated, milisecondscreated)",
+    addItem : "INSERT INTO sold_items (name, price, imagelink, description, datecreated, milisecondscreated)",
     buyItem : "DELETE FROM sold_items WHERE id =",
     incrementBalance : (newBalance : number) => `UPDATE balance SET current_balance = ${newBalance} WHERE id=1;`
 }
