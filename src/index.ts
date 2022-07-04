@@ -37,6 +37,11 @@ app.use(cors({ credentials: true, origin: serverConfig.clientSite}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(extractJWT);
+app.use((req, res, next) => {
+    // console.log(req);
+    // console.log(req.cookies)
+    next();
+})
 
 // Routes
 app.use("/store", storeDataRouter);
