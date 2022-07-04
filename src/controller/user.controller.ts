@@ -28,7 +28,7 @@ export const login : RequestHandler =  async  (req : Request, res : Response) =>
         return;
     }
 
-    createAndSaveJWT({student_id, password : undefined} as UserOpaque, res);
+    // createAndSaveJWT({student_id, password : undefined} as UserOpaque, res);
     return res.status(200).send({message : "Succesfully logged in", error : null, response});
 }   
 
