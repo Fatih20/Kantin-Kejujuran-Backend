@@ -34,8 +34,8 @@ app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use(extractJWT_1.default);
 app.use((req, res, next) => {
-    console.log(req);
-    console.log(req.cookies);
+    // console.log(req);
+    // console.log(req.cookies)
     next();
 });
 // Routes
