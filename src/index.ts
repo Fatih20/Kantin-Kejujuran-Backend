@@ -1,12 +1,12 @@
 import express, { Application, Request, Response, Router } from 'express';
 import cookieParser from 'cookie-parser';
-import pool from './database/db';
 
 import storeDataRouter from './routes/storeData.routes';
 // import extractJWT from './middleware/extractJWT';
 import cors from "cors";
 import serverConfig from './utilities/config';
 import userRouter from './routes/user.routes';
+import extractJWT from './middleware/extractJWT';
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -36,8 +36,7 @@ app.use(function (req, res, next) {
 app.use(cors({ credentials: true, origin: serverConfig.clientSite}));
 app.use(express.json());
 app.use(cookieParser());
-
-// app.use(extractJWT);
+app.use(extractJWT);
 
 // Routes
 app.use("/store", storeDataRouter);
@@ -48,7 +47,8 @@ router.get("/", (req : Request, res : Response) => {
 });
 
 router.get("/test", (req : Request, res : Response) => {
-    res.send({message : "Test successful"});
+    console.log(req.cookies);
+    res.send({message : "Test complete"});
 })
 
 app.use(router);

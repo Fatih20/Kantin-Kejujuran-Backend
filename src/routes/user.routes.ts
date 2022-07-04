@@ -1,11 +1,13 @@
 import express from "express";
-import { login, register, returnUserInfo } from "../controller/user.controller";
+import { login, register, returnIfLoggedIn } from "../controller/user.controller";
+import checkIfLoggedIn from "../middleware/checkIfLoggedIn";
+import checkIfNotLoggedIn from "../middleware/checkIfNotLoggedIn";
 
 const userRouter = express.Router();
 
-userRouter.use("/me", returnUserInfo);
-userRouter.use("/login", login);
-userRouter.use("/register", register);
+userRouter.get("/me", checkIfLoggedIn, returnIfLoggedIn);
+userRouter.get("/login", checkIfNotLoggedIn, login);
+userRouter.post("/register", checkIfNotLoggedIn, register);
 
 
 

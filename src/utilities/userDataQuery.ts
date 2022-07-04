@@ -15,16 +15,16 @@ export async function loginQuery (student_id : string, password : string) : Prom
     try {
         const userIsRegistered = (await pool.query(accountQuery.register.checkIfRegistered, [student_id]))?.rows[0].exists
         if (userIsRegistered) {
-            console.log("Passed the not registered test");
             const studentRealPassword = (await pool.query(accountQuery.login.getPassword, [student_id])).rows[0].password
             console.log(studentRealPassword);
+            console.log(password);
             if (password === studentRealPassword) {
-                return {error : "wrongPassword", errorManMade : "wrongPassword",  response : undefined, position : "Done"}
+                return {error : null, response : "Success", position : "Done"}
             } else {
-                return {error : null, response : "Success", position : "Inserting new user"}
+                return {error : "wrongPassword", errorManMade : "wrongPassword",  response : undefined, position : "Done"}
             }
         } else {
-            return {error : "notRegistered", errorManMade : "notRegistered", response : undefined, position : "Inserting new user"}
+            return {error : "notRegistered", errorManMade : "notRegistered", response : undefined, position : "Getting new password"}
         }
     } catch (error) {
         return {error, response : undefined, position : "Checking uniqueness"}

@@ -10,6 +10,7 @@ const storeData_routes_1 = __importDefault(require("./routes/storeData.routes"))
 const cors_1 = __importDefault(require("cors"));
 const config_1 = __importDefault(require("./utilities/config"));
 const user_routes_1 = __importDefault(require("./routes/user.routes"));
+const extractJWT_1 = __importDefault(require("./middleware/extractJWT"));
 const dotenv = require('dotenv');
 dotenv.config();
 const app = (0, express_1.default)();
@@ -31,7 +32,7 @@ app.use(function (req, res, next) {
 app.use((0, cors_1.default)({ credentials: true, origin: config_1.default.clientSite }));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
-// app.use(extractJWT);
+app.use(extractJWT_1.default);
 // Routes
 app.use("/store", storeData_routes_1.default);
 app.use("/user", user_routes_1.default);
@@ -39,7 +40,8 @@ router.get("/", (req, res) => {
     res.send("Hello world");
 });
 router.get("/test", (req, res) => {
-    res.send({ message: "Test successful" });
+    console.log(req.cookies);
+    res.send({ message: "Test complete" });
 });
 app.use(router);
 app.listen(config_1.default.port, '0.0.0.0', () => console.log('The Server is listening on the port 3000'));

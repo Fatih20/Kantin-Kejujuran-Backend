@@ -11,6 +11,11 @@ const serverConfig = {
         password : process.env.DATABASE_PASSWORD as string,
         port : parseInt(process.env.DATABASE_PORT as string),
         user : process.env.DATABASE_USER as string
+    },
+    jwt : {
+        issuer : process.env.ISSUER as string, 
+        keyGeneratingJWT : process.env.KEYJWT as string,
+        expireTime : parseInt(process.env.EXPIRE_TIME as string)
     }
 }
 

@@ -29,6 +29,10 @@ const possibleRegisterErrorPositionList = ["Checking uniqueness", "Inserting new
 
 export type RegisterErrorPosition = typeof possibleRegisterErrorPositionList[number];
 
+const possibleLoginErrorPositionList = ["Checking uniqueness", "Getting new password", "Done"] as const;
+
+export type LoginErrorPosition = typeof possibleLoginErrorPositionList[number];
+
 const possibleLoginErrorManMadeList = ["notRegistered", "wrongPassword"] as const;
 
 export type LoginErrorManMade = (typeof possibleLoginErrorManMadeList[number])
@@ -47,5 +51,5 @@ export type LoginQueryReturn = {
     response : any,
     error : unknown,
     errorManMade? : LoginErrorManMade,
-    position : RegisterErrorPosition,
+    position : LoginErrorPosition,
 }

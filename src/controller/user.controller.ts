@@ -1,4 +1,6 @@
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
+import createAndSaveJWT from "../utilities/createAndSaveJWT";
+import { UserOpaque } from "../utilities/types";
 import { loginQuery, registerQuery } from "../utilities/userDataQuery";
 
 export async function login (req : Request, res : Response) {
@@ -13,7 +15,7 @@ export async function login (req : Request, res : Response) {
         } else {
             if (position === "Checking uniqueness") {
                 res.status(500).send({error, message : "Error when checking if user is in the database", response})
-            } else if (position === "Inserting new user") {
+            } else if (position === "Getting new password") {
                 res.status(500).send({error, message : "Error when inserting new user into the database", response})
             } else {
                 res.status(500).send({error, message : "Error when done", response})
@@ -22,6 +24,7 @@ export async function login (req : Request, res : Response) {
         return;
     }
 
+    createAndSaveJWT({student_id, password : undefined} as UserOpaque, res);
     return res.status(200).send({message : "Succesfully logged in", error : null, response});
 }   
 
@@ -45,9 +48,10 @@ export async function register (req : Request, res : Response) {
 
     }
 
+    createAndSaveJWT({student_id, password : undefined} as UserOpaque, res);
     return res.status(200).send({message : "Succesfully registered new user", error : null, response})
 } 
 
-export async function returnUserInfo () {
-
+export async function returnIfLoggedIn (req : Request, res : Response) {
+    res.status(200).send({error : null, response : {...(res.locals.user), password : undefined}, message : "You are still logged in"})
 }
