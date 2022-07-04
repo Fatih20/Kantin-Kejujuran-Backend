@@ -24,4 +24,4 @@ You're not recommended to host the back-end locally, use the app instead [here](
 4. Run `npm run watch-node`
 5. Access the API by going to the `localhost:3000` endpoint
 
-Please note that by default only `localhost:8080` can consume the API, unless modifications are made to the environment variable.
+Please note that by default only `localhost:8080` and the site of the actual Honest Canteen front-end can consume the API, unless modifications are made to the environment variable.
