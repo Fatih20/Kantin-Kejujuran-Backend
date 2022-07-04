@@ -2,10 +2,11 @@ import express, { Application, Request, Response, Router } from 'express';
 import cookieParser from 'cookie-parser';
 import pool from './database/db';
 
-import { storeDataRouter } from './routes/storeData.routes';
+import storeDataRouter from './routes/storeData.routes';
 // import extractJWT from './middleware/extractJWT';
 import cors from "cors";
 import serverConfig from './utilities/config';
+import userRouter from './routes/user.routes';
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -40,6 +41,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/store", storeDataRouter);
+app.use("/user", userRouter)
 
 router.get("/", (req : Request, res : Response) => {
     res.send("Hello world");

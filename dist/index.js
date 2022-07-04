@@ -5,10 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
-const storeData_routes_1 = require("./routes/storeData.routes");
+const storeData_routes_1 = __importDefault(require("./routes/storeData.routes"));
 // import extractJWT from './middleware/extractJWT';
 const cors_1 = __importDefault(require("cors"));
 const config_1 = __importDefault(require("./utilities/config"));
+const user_routes_1 = __importDefault(require("./routes/user.routes"));
 const dotenv = require('dotenv');
 dotenv.config();
 const app = (0, express_1.default)();
@@ -32,7 +33,8 @@ app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 // app.use(extractJWT);
 // Routes
-app.use("/store", storeData_routes_1.storeDataRouter);
+app.use("/store", storeData_routes_1.default);
+app.use("/user", user_routes_1.default);
 router.get("/", (req, res) => {
     res.send("Hello world");
 });
