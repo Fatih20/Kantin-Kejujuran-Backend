@@ -39,7 +39,7 @@ app.use(function (req, res, next) {
     next();
 });
 app.use((req : Request, res : Response, next : NextFunction) => {
-    const requestOrigin = req.header('origin')?.toLowerCase() as string;
+    const requestOrigin = req.headers.origin as string;
     cors({ credentials: true, origin: serverConfig.clientSite.includes(requestOrigin) ? requestOrigin : serverConfig.clientSite[0], })
     next();
 });

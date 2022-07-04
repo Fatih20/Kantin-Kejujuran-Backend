@@ -33,8 +33,7 @@ app.use(function (req, res, next) {
     next();
 });
 app.use((req, res, next) => {
-    var _a;
-    const requestOrigin = (_a = req.header('origin')) === null || _a === void 0 ? void 0 : _a.toLowerCase();
+    const requestOrigin = req.headers.origin;
     (0, cors_1.default)({ credentials: true, origin: config_1.default.clientSite.includes(requestOrigin) ? requestOrigin : config_1.default.clientSite[0], });
     next();
 });
