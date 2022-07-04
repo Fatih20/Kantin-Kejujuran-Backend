@@ -1,5 +1,6 @@
 import pool from "../database/db";
 import { LoginQueryReturn, RegisterErrorPosition, RegisterQueryReturn } from "./types";
+import bcrypt from 'bcrypt';
 
 const accountQuery = {
     register : {
@@ -16,7 +17,7 @@ export async function loginQuery (student_id : string, password : string) : Prom
         const userIsRegistered = (await pool.query(accountQuery.register.checkIfRegistered, [student_id]))?.rows[0].exists
         if (userIsRegistered) {
             const studentRealPassword = (await pool.query(accountQuery.login.getPassword, [student_id])).rows[0].password
-            if (password === studentRealPassword) {
+            if (await bcrypt.compare(password, studentRealPassword)) {
                 return {error : null, response : "Success", position : "Done"}
             } else {
                 return {error : "wrongPassword", errorManMade : "wrongPassword",  response : undefined, position : "Done"}
@@ -34,7 +35,7 @@ export async function registerQuery(student_id : string, password : string) : Pr
         const userIsRegistered = (await pool.query(accountQuery.register.checkIfRegistered, [student_id]))?.rows[0].exists
         if (!userIsRegistered) {
             try {
-                const response = await pool.query(accountQuery.register.addNewUser, [student_id, password]);
+                const response = await pool.query(accountQuery.register.addNewUser, [student_id, await bcrypt.hash(password, 10)]);
                 return {error : null, response, position : "Done"}
             } catch (error) {
                 return {error, response : undefined, position : "Inserting new user"}
