@@ -12,7 +12,7 @@ const storeQuery = {
 export async function getAllItemsQuery () {
     try {
         const response = await pool.query(storeQuery.getAllItems);
-        console.log(response);
+        // console.log(response);
         return {error : null, response};
     } catch (error){
         return {response : undefined, error};

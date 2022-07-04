@@ -1,7 +1,7 @@
 import { ISoldItemRaw, ISoldItemRawString } from "./types";
 
 export function numerizer (stringItem : ISoldItemRawString) {
-    console.log(stringItem)
+    // console.log(stringItem)
     const {name, price, datecreated, description, id, imagelink, milisecondcreated} = stringItem;
     return {
         name,
