@@ -6,7 +6,7 @@ import serverConfig  from '../utilities/config';
 
 async function extractJWT(req : Request, res : Response, next : NextFunction) {
     const keyGeneratingJWT = serverConfig.jwt.keyGeneratingJWT;
-    console.log(req.cookies);
+    // console.log(req.cookies);
     if (req.cookies.token){
         const token = req.cookies.token as string;
         jwt.verify(token, keyGeneratingJWT, (error, user) => {
