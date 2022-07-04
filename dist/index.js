@@ -28,14 +28,14 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
-    // res.setHeader('Access-Control-Allow-Credentials', "true");
+    res.setHeader('Access-Control-Allow-Credentials', "true");
     // Pass to next layer of middleware
     next();
 });
 app.use((req, res, next) => {
     var _a;
     const requestOrigin = (_a = req.header('origin')) === null || _a === void 0 ? void 0 : _a.toLowerCase();
-    (0, cors_1.default)({ credentials: true, origin: config_1.default.clientSite.includes(requestOrigin) ? requestOrigin : config_1.default.clientSite[0] });
+    (0, cors_1.default)({ credentials: true, origin: config_1.default.clientSite.includes(requestOrigin) ? requestOrigin : config_1.default.clientSite[0], });
     next();
 });
 app.use(express_1.default.json());
