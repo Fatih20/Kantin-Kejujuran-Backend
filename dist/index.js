@@ -34,7 +34,7 @@ app.use(function (req, res, next) {
 });
 app.use((req, res, next) => {
     const requestOrigin = req.headers.origin;
-    (0, cors_1.default)({ credentials: true, origin: config_1.default.clientSite.includes(requestOrigin) ? requestOrigin : config_1.default.clientSite[0], });
+    (0, cors_1.default)({ credentials: true, origin: config_1.default.clientSite.includes(requestOrigin) ? requestOrigin : config_1.default.clientSite[1], });
     next();
 });
 app.use(express_1.default.json());
