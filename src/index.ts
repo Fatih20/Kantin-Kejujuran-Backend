@@ -23,7 +23,8 @@ app.use(function (req, res, next) {
     // console.log(serverConfig.clientSite[0]);
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', serverConfig.clientSite[0]);
+    const requestOrigin = req.headers.origin as string;
+    res.setHeader('Access-Control-Allow-Origin', serverConfig.clientSite.includes(requestOrigin) ? requestOrigin : serverConfig.clientSite[0]);
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -40,7 +41,7 @@ app.use(function (req, res, next) {
 });
 app.use((req : Request, res : Response, next : NextFunction) => {
     const requestOrigin = req.headers.origin as string;
-    cors({ credentials: true, origin: serverConfig.clientSite.includes(requestOrigin) ? requestOrigin : serverConfig.clientSite[1], })
+    cors({ credentials: true, origin: serverConfig.clientSite.includes(requestOrigin) ? requestOrigin : serverConfig.clientSite[1] })
     next();
 });
 app.use(express.json());
