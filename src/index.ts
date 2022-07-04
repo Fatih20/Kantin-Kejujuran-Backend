@@ -17,6 +17,9 @@ const router: Router = express.Router();
 // Middlewares
 app.use(function (req, res, next) {
 
+    console.log(serverConfig.clientSite);
+    console.log(serverConfig.clientSite[0]);
+
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', serverConfig.clientSite[0]);
 
@@ -33,7 +36,7 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-app.use(cors({ credentials: true, origin: serverConfig.clientSite }));
+app.use(cors({ credentials: true, origin: serverConfig.clientSite[0] }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(extractJWT);
@@ -52,7 +55,7 @@ router.get("/", (req : Request, res : Response) => {
 });
 
 router.get("/test", (req : Request, res : Response) => {
-    console.log(req.cookies);
+    // console.log(req.cookies);
     res.send({message : "Test complete"});
 })
 

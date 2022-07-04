@@ -17,6 +17,8 @@ const app = (0, express_1.default)();
 const router = express_1.default.Router();
 // Middlewares
 app.use(function (req, res, next) {
+    console.log(config_1.default.clientSite);
+    console.log(config_1.default.clientSite[0]);
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', config_1.default.clientSite[0]);
     // Request methods you wish to allow
@@ -29,7 +31,7 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-app.use((0, cors_1.default)({ credentials: true, origin: config_1.default.clientSite }));
+app.use((0, cors_1.default)({ credentials: true, origin: config_1.default.clientSite[0] }));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use(extractJWT_1.default);
@@ -45,7 +47,7 @@ router.get("/", (req, res) => {
     res.send("Hello world");
 });
 router.get("/test", (req, res) => {
-    console.log(req.cookies);
+    // console.log(req.cookies);
     res.send({ message: "Test complete" });
 });
 app.use(router);
