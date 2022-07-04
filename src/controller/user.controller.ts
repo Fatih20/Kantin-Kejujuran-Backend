@@ -7,7 +7,7 @@ export const logout : RequestHandler = async (req : Request, res : Response) => 
     return res.clearCookie('token').send({message : "Logout successful"});
 }
 
-export async function login (req : Request, res : Response) {
+export const login : RequestHandler =  async  (req : Request, res : Response) => {
     const {student_id, password} = req.body;
     const {error, response, errorManMade, position } = await loginQuery(student_id, password);
 
@@ -32,7 +32,7 @@ export async function login (req : Request, res : Response) {
     return res.status(200).send({message : "Succesfully logged in", error : null, response});
 }   
 
-export async function register (req : Request, res : Response) {
+export const register : RequestHandler =  async  (req : Request, res : Response) => {
     const {student_id, password} = req.body
     
     const {error, response, position, errorManMade } = await registerQuery(student_id, password);
