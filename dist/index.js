@@ -36,6 +36,7 @@ app.use((req, res, next) => {
     var _a;
     const requestOrigin = (_a = req.header('origin')) === null || _a === void 0 ? void 0 : _a.toLowerCase();
     (0, cors_1.default)({ credentials: true, origin: config_1.default.clientSite.includes(requestOrigin) ? requestOrigin : config_1.default.clientSite[0] });
+    next();
 });
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
