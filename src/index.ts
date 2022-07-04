@@ -1,4 +1,4 @@
-import express, { Application, Request, Response, Router } from 'express';
+import express, { Application, NextFunction, Request, Response, Router } from 'express';
 import cookieParser from 'cookie-parser';
 
 import storeDataRouter from './routes/storeData.routes';
@@ -17,8 +17,10 @@ const router: Router = express.Router();
 // Middlewares
 app.use(function (req, res, next) {
 
-    console.log(serverConfig.clientSite);
-    console.log(serverConfig.clientSite[0]);
+    console.log(req.header('origin'));
+
+    // console.log(serverConfig.clientSite);
+    // console.log(serverConfig.clientSite[0]);
 
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', serverConfig.clientSite[0]);
@@ -36,7 +38,9 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-app.use(cors({ credentials: true, origin: serverConfig.clientSite[0] }));
+app.use((req : Request, res : Response, next : NextFunction) => {
+    const requestOrigin = req.header('origin')?.toLowerCase() as string;
+    cors({ credentials: true, origin: serverConfig.clientSite.includes(requestOrigin) ? requestOrigin : serverConfig.clientSite[0] })});
 app.use(express.json());
 app.use(cookieParser());
 app.use(extractJWT);
