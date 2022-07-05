@@ -1,4 +1,4 @@
-import { ISoldItemRaw, ISoldItemRawString } from "./types";
+import { ISoldItem, ISoldItemRaw, ISoldItemRawString } from "./types";
 
 export function numerizer (stringItem : ISoldItemRawString) {
     // console.log(stringItem)
@@ -27,4 +27,16 @@ export function escapeQuotes (string : string | number) {
         replace(/\r/g, '\\r').
         replace(/'/g, '\\\'').
         replace(/"/g, '\\"');
+}
+
+export function readAndStringifyItem (item : ISoldItem) {
+    const {datecreated, name, price, description, imagelink, milisecondcreated} = item;
+
+    return {name : JSON.stringify(name), price, description : JSON.stringify(description), imagelink : JSON.stringify(imagelink), milisecondcreated, datecreated : JSON.stringify(datecreated)} as ISoldItem
+}
+
+export function readAndParseItem (item : ISoldItemRaw) {
+    const {datecreated, name, price, description, imagelink, milisecondcreated, id} = item;
+
+    return {name : JSON.parse(name), price, description : JSON.parse(description), imagelink : JSON.parse(imagelink), milisecondcreated, datecreated : JSON.parse(datecreated), id} as ISoldItem
 }
