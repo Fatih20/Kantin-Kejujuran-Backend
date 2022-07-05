@@ -32,7 +32,7 @@ export async function getBalanceQuery () {
 export async function addItemQuery (addedItem : ISoldItem) {
     const {datecreated, price, milisecondcreated, description, name, imagelink} = addedItem;
     try {
-        const response = await pool.query(storeQuery.addItem, [name, price, imagelink, description, datecreated, milisecondcreated].map(escapeQuotes));
+        const response = await pool.query(storeQuery.addItem, [name, price, imagelink, description, datecreated, milisecondcreated]);
         return {error : null, response}
     } catch (error){
         return {response : undefined, error};
