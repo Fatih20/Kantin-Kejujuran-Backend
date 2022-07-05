@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import { CookieOptions } from "express";
 dotenv.config();
 
 const serverConfig = {
@@ -16,7 +17,8 @@ const serverConfig = {
         issuer : process.env.ISSUER as string, 
         keyGeneratingJWT : process.env.KEYJWT as string,
         expireTime : parseInt(process.env.EXPIRE_TIME as string)
-    }
+    },
+    cookieSettings : {httpOnly : true, secure : true, sameSite : "lax"} as CookieOptions
 }
 
 export default serverConfig;

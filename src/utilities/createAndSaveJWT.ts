@@ -9,7 +9,7 @@ function createAndSaveJWT(user : UserOpaque, res : Response) {
     const expires = new Date(Date.now() + serverConfig.jwt.expireTime);
     try {
         const token = jwt.sign(user, keyGeneratingJWT, {algorithm : "HS256",expiresIn : "1d", issuer});
-        res.cookie("token", token, {httpOnly : true, secure : true, sameSite : "none"});
+        res.cookie("token", token, serverConfig.cookieSettings);
         return {error : null, response : "Token signed"}
     } catch (error) {
         return {error, response : undefined}

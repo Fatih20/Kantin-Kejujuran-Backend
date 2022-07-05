@@ -1,10 +1,11 @@
 import { Request, RequestHandler, response, Response } from "express";
+import serverConfig from "../utilities/config";
 import createAndSaveJWT from "../utilities/createAndSaveJWT";
 import { UserOpaque } from "../utilities/types";
 import { loginQuery, registerQuery } from "../utilities/userDataQuery";
 
 export const logout : RequestHandler = async (req : Request, res : Response) => {
-    return res.clearCookie('token').send({message : "Logout successful"});
+    return res.clearCookie('token', serverConfig.cookieSettings).send({message : "Logout successful"});
 }
 
 export const login : RequestHandler =  async  (req : Request, res : Response) => {
