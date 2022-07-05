@@ -11,14 +11,14 @@ export async function getAllItems (req : Request, res : Response) {
         return;
     }
 
-    const processedResponse = (response.rows as ISoldItemRawString[]).map(numerizer).map(readAndParseItem);
+    const processedResponse = (response.rows as ISoldItemRawString[]).map(numerizer);
 
     return res.status(200).send({error, message : "Succesfully fetched data", response : processedResponse as ISoldItemRaw[]});
 
 }
 
 export async function addItem (req : Request, res : Response) {
-    const {response, error } = await addItemQuery(readAndStringifyItem(req.body.addedItem as ISoldItem));
+    const {response, error } = await addItemQuery(req.body.addedItem as ISoldItem);
 
     if (error !== null || response === undefined) {
         res.status(500).send({error, message : "Error when adding data to the database", response});

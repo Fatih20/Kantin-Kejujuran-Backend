@@ -10,7 +10,7 @@ export const logout : RequestHandler = async (req : Request, res : Response) => 
 
 export const login : RequestHandler =  async  (req : Request, res : Response) => {
     const {student_id, password} = req.body;
-    const {error, response, errorManMade, position } = await loginQuery(student_id, JSON.stringify(password));
+    const {error, response, errorManMade, position } = await loginQuery(student_id, password);
 
     if (error !== null || response === undefined) {
         if (errorManMade === "wrongPassword") {
@@ -40,7 +40,7 @@ export const login : RequestHandler =  async  (req : Request, res : Response) =>
 export const register : RequestHandler =  async  (req : Request, res : Response) => {
     const {student_id, password} = req.body
     
-    const {error, response, position, errorManMade } = await registerQuery(student_id, JSON.stringify(password));
+    const {error, response, position, errorManMade } = await registerQuery(student_id, password);
 
     if (error !== null || response === undefined) {
         if (errorManMade === "registeredAlready") {
