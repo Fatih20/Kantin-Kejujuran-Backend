@@ -13,3 +13,18 @@ export function numerizer (stringItem : ISoldItemRawString) {
         milisecondcreated : parseInt(milisecondcreated)
     } as ISoldItemRaw;
 }
+
+export function escapeQuotes (string : string | number) {
+
+    if (typeof string === "number") {
+        return string as number;
+    }
+    return string.replace(/\\/g, '\\\\').
+        replace(/\u0008/g, '\\b').
+        replace(/\t/g, '\\t').
+        replace(/\n/g, '\\n').
+        replace(/\f/g, '\\f').
+        replace(/\r/g, '\\r').
+        replace(/'/g, '\\\'').
+        replace(/"/g, '\\"');
+}
