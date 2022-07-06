@@ -2,7 +2,7 @@ import { Request, RequestHandler, response, Response } from "express";
 import serverConfig from "../utilities/config";
 import createAndSaveJWT from "../utilities/createAndSaveJWT";
 import { UserOpaque } from "../utilities/types";
-import { loginQuery, registerQuery } from "../utilities/userDataQuery";
+import { deleteQuery, loginQuery, registerQuery } from "../utilities/userDataQuery";
 
 export const logout : RequestHandler = async (req : Request, res : Response) => {
     return res.clearCookie('token', serverConfig.cookieSettings).send({message : "Logout successful"});
@@ -59,6 +59,18 @@ export const register : RequestHandler =  async  (req : Request, res : Response)
 
     createAndSaveJWT({student_id, password : undefined} as UserOpaque, res);
     return res.status(200).send({message : "Succesfully registered new user", error : null, response})
+} 
+
+export const deleteAccount : RequestHandler = async (req : Request, res : Response) => {
+    const {student_id} = res.locals.user;
+    const {error, response } = await deleteQuery(student_id);
+    if (error !== null || response === undefined) {
+        res.status(500).send({message : "Failed when deleting the user", error, response})
+        return;
+    }
+
+    res.clearCookie('token', serverConfig.cookieSettings)
+    res.status(200).send({message : "Successfully deleted the user", error, response})
 } 
 
 export async function returnIfLoggedIn (req : Request, res : Response) {

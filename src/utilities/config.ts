@@ -18,7 +18,8 @@ const serverConfig = {
         keyGeneratingJWT : process.env.KEYJWT as string,
         expireTime : parseInt(process.env.EXPIRE_TIME as string)
     },
-    cookieSettings : {httpOnly : true, secure : true, sameSite : "none"} as CookieOptions
+    // cookieSettings : {httpOnly : true, secure : false, sameSite : "none"} as CookieOptions
+    cookieSettings : {httpOnly : true, secure : (process.env.PRODUCTION as string) === "true", sameSite : "none"} as CookieOptions
 
 }
 

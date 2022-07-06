@@ -53,3 +53,8 @@ export type LoginQueryReturn = {
     errorManMade? : LoginErrorManMade,
     position : LoginErrorPosition,
 }
+
+export type DeleteQueryReturn = {
+    response : any,
+    error : unknown
+}

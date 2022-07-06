@@ -17,9 +17,6 @@ const app = (0, express_1.default)();
 const router = express_1.default.Router();
 // Middlewares
 app.use(function (req, res, next) {
-    console.log(req.header('origin'));
-    // console.log(serverConfig.clientSite);
-    // console.log(serverConfig.clientSite[0]);
     // Website you wish to allow to connect
     const requestOrigin = req.headers.origin;
     res.setHeader('Access-Control-Allow-Origin', config_1.default.clientSite.includes(requestOrigin) ? requestOrigin : config_1.default.clientSite[0]);

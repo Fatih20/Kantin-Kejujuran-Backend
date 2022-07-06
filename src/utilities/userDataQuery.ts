@@ -1,5 +1,5 @@
 import pool from "../database/db";
-import { LoginQueryReturn, RegisterErrorPosition, RegisterQueryReturn } from "./types";
+import { DeleteQueryReturn, LoginQueryReturn, RegisterErrorPosition, RegisterQueryReturn } from "./types";
 import bcrypt from 'bcrypt';
 import { escapeQuotes } from "./utilities";
 
@@ -10,7 +10,8 @@ const accountQuery = {
     },
     login : {
         getPassword : `SELECT password FROM students WHERE student_id=$1;`
-    }
+    },
+    delete : `DELETE FROM students WHERE student_id=$1;`
 };
 
 export async function loginQuery (student_id : string, password : string) : Promise<LoginQueryReturn> {
@@ -46,6 +47,15 @@ export async function registerQuery(student_id : string, password : string) : Pr
         }
     } catch (error) {
         return {response : undefined, error, position : "Checking uniqueness" as RegisterErrorPosition}
+    }
+}
+
+export async function deleteQuery (student_id : string) : Promise<DeleteQueryReturn> {
+    try {
+        const response = await pool.query(accountQuery.delete, [student_id]);
+        return {response, error : null};
+    } catch (error) {
+        return {error, response : undefined}
     }
 }
 
