@@ -4,10 +4,10 @@ import { escapeQuotes } from "./utilities";
 
 const storeQuery = {
     getAllItems : "SELECT * FROM sold_items;",
-    getBalance : "SELECT current_balance FROM balance WHERE id = 1;",
+    getBalance : "SELECT current_balance FROM balance WHERE id = 2;",
     addItem : "INSERT INTO sold_items (name, price, imagelink, description, datecreated, milisecondcreated) VALUES ($1, $2, $3, $4, $5, $6);",
     buyItem : "DELETE FROM sold_items WHERE id =$1;",
-    incrementBalance : `UPDATE balance SET current_balance = $1 WHERE id=1;`
+    incrementBalance : `UPDATE balance SET current_balance = $1 WHERE id=2;`
 }
 
 export async function getAllItemsQuery () {
