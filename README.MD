@@ -6,7 +6,7 @@ You're not recommended to host the back-end locally, use the app instead [here](
 ## Run the back-end locally
 
 1. Clone the repository to your local device with `git clone`
-2. Make a `.env` file containing the below content to store the needed environment variable.
+2. Make a `.env` file in the root directory. The file should contain the below content to store the needed environment variable.
    ```
    PORT=3000
    CLIENT_SITE=https://courageous-gumdrop-00bd28.netlify.app,http://localhost:8080
@@ -24,4 +24,4 @@ You're not recommended to host the back-end locally, use the app instead [here](
 4. Run `npm run watch-node`
 5. Access the API by going to the `localhost:3000` endpoint
 
-Please note that by default only `localhost:8080` and the site of the actual Honest Canteen front-end can consume the API, unless modifications are made to the environment variable.
+Please note that by default only `localhost:8080` and the site of the actual Honest Canteen front-end can consume the API, unless modifications are made to the environment variable of `CLIENT_SITE` by adding more website.
