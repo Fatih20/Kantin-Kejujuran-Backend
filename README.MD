@@ -1,7 +1,7 @@
 # Honest Canteen
 
 This is a repository containing the back-end portion of honest canteen that is hosted on Heroku with their postgreSQL add-on.
-You're not recommended to host the back-end locally, use the app instead [here](https://courageous-gumdrop-00bd28.netlify.app/).
+You're not recommended to host the back-end locally, use the app instead [here](https://courageous-gumdrop-00bd28.netlify.app/) and visit the complete overall documentation of the app in the front-end repository [here](https://github.com/Fatih20/Kantin-Kejujuran).
 
 ## Run the back-end locally
 
